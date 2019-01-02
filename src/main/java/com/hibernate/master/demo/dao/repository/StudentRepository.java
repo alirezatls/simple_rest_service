@@ -4,4 +4,5 @@ import com.hibernate.master.demo.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StudentRepository extends JpaRepository<Student,Integer> {
+    Integer deleteStudentByStudentId(Integer studentId);
 }

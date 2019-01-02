@@ -1,6 +1,7 @@
 package com.hibernate.master.demo.dao.impl;
 
 import com.hibernate.master.demo.dao.StudentDao;
+import com.hibernate.master.demo.dao.repository.StudentRepository;
 import com.hibernate.master.demo.entity.Address;
 import com.hibernate.master.demo.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +19,22 @@ public class StudentDaoImpl implements StudentDao{
     @Autowired
     EntityManager em;
 
+    @Autowired
+    StudentRepository studentRepository;
+
     @Override
     public Student getStudentById(int id) {
         return em.find(Student.class,id);
     }
 
     @Override
-    public void saveOrUpdateStudent(Student s) {
-        if(s.getStudentId() == null)
-            em.persist(s);
-        else
-            em.merge(s);
+    public Student saveStudent(Student s) {
+        return studentRepository.save(s);
     }
 
     @Override
-    public void removeStudentById(int id) {
-        Student student = getStudentById(id);
-        em.remove(student);
+    public Integer removeStudentById(int id) {
+        return studentRepository.deleteStudentByStudentId(id);
     }
 
     @Override

@@ -12,8 +12,11 @@ public class Address {
     @Id
     @GeneratedValue
     private Integer addressId;
+
     private String city;
+
     private String street;
+
     private String zipCode;
     @JsonIgnore
     @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)

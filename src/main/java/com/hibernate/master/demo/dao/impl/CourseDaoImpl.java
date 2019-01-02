@@ -1,6 +1,7 @@
 package com.hibernate.master.demo.dao.impl;
 
 import com.hibernate.master.demo.dao.CourseDao;
+import com.hibernate.master.demo.dao.repository.CourseRepository;
 import com.hibernate.master.demo.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,9 @@ public class CourseDaoImpl implements CourseDao {
     @Autowired
     EntityManager em;
 
+    @Autowired
+    CourseRepository courseRepository;
+
     @Override
     public Course getById(Long id) {
         return em.find(Course.class,id);
@@ -29,12 +33,8 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public void saveOrUpdate(Course course) {
-        Course co = getById(course.getId());
-        if(co.getId() == null)
-            em.persist(course); //save a object
-        else
-            em.merge(course); //update a object
+    public Course saveCourse(Course course) {
+        return courseRepository.save(course);
     }
 
     @Override

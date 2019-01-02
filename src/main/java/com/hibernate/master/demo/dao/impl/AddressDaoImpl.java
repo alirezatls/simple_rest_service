@@ -1,6 +1,7 @@
 package com.hibernate.master.demo.dao.impl;
 
 import com.hibernate.master.demo.dao.AddressDao;
+import com.hibernate.master.demo.dao.repository.AddressRepository;
 import com.hibernate.master.demo.entity.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,23 +21,22 @@ public class AddressDaoImpl implements AddressDao {
     @Autowired
     EntityManager em;
 
+    @Autowired
+    AddressRepository addressRepository;
+
     @Override
     public Address getAddressById(int id) {
         return em.find(Address.class,id);
     }
 
     @Override
-    public void saveOrUpdateAddress(Address a) {
-        if (a.getAddressId() == null)
-            em.persist(a);
-        else
-            em.merge(a);
+    public Address saveAddress(Address a) {
+        return addressRepository.save(a);
     }
 
     @Override
-    public void removeAddressById(int id) {
-        Address address = getAddressById(id);
-        em.remove(address);
+    public Integer removeAddressById(int id) {
+        return addressRepository.deleteAddressByAddressId(id);
     }
 
     @Override

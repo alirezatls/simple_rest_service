@@ -8,9 +8,9 @@ public interface AddressDao {
 
     Address getAddressById(int id);
 
-    void saveOrUpdateAddress(Address a);
+    Address saveAddress(Address a);
 
-    void removeAddressById(int id);
+    Integer removeAddressById(int id);
 
     List<Address> getAllAddress();
 }

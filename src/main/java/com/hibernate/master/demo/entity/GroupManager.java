@@ -13,8 +13,11 @@ import java.util.List;
 public class GroupManager {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Integer managerId;
+
     private String name;
+
     private String family;
     @JsonIgnore
     @OneToMany(mappedBy = "groupManager",fetch = FetchType.LAZY)

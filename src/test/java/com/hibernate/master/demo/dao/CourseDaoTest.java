@@ -34,7 +34,7 @@ public class CourseDaoTest {
     public void saveOrUpdate() {
         Course course = courseDao.getById(1L);
         course.setName("Rest Ws");
-        courseDao.saveOrUpdate(course);
+        //courseDao.saveOrUpdate(course);
 
         assertEquals("Rest Ws",course.getName());
     }

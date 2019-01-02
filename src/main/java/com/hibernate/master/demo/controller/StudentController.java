@@ -3,10 +3,13 @@ package com.hibernate.master.demo.controller;
 import com.hibernate.master.demo.dao.StudentDao;
 import com.hibernate.master.demo.dao.repository.StudentRepository;
 import com.hibernate.master.demo.entity.Student;
+import exception.EmptyListException;
+import exception.NoSuchStudentException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,14 +23,39 @@ public class StudentController {
     @Autowired
     StudentDao studentDao;
 
-    @GetMapping(path = "/rs/ow/{id}")
+    @GetMapping(path = "/rs/st/{id}")
     public Student findStd(@PathVariable int id) {
         Optional<Student> optional = studentRepository.findById(id);
         return optional.get();
     }
 
-    @GetMapping(path = "/rs/ow/students")
+    @GetMapping(path = "/rs/st/students")
     public List<Student> findAllStd() {
-        return studentDao.getAllStudent();
+
+        List<Student> students = studentDao.getAllStudent();
+        if (students.size() == 0)
+            throw new EmptyListException("No Content");
+        else
+            return students;
+    }
+
+    @PostMapping(path = "/rs/st/students")
+    public ResponseEntity<Object> postStudent(@RequestBody Student std) {
+        Student student = studentDao.saveStudent(std);
+
+        UriComponents uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(student.getStudentId());
+
+        return ResponseEntity.created(uri.toUri()).build();
+    }
+
+    @DeleteMapping(path = "/rs/st/{id}")
+    public ResponseEntity<Object> deleteStudent(@PathVariable int id) {
+        Integer state = studentDao.removeStudentById(id);
+        if(state<=0)
+            throw new NoSuchStudentException("No Such Student");
+        else
+            return ResponseEntity.ok().build();
     }
 }

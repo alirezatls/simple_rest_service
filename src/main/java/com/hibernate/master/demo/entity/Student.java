@@ -12,6 +12,7 @@ public class Student {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Integer studentId;
 
     private String name;
@@ -21,11 +22,11 @@ public class Student {
     @Column(unique = true)
     private String studentNumber;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @ManyToMany(mappedBy = "studentList",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "studentList",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Course> courseList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

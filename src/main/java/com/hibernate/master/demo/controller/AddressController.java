@@ -2,10 +2,12 @@ package com.hibernate.master.demo.controller;
 
 import com.hibernate.master.demo.dao.AddressDao;
 import com.hibernate.master.demo.entity.Address;
+import exception.NoSuchAddressException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import java.util.List;
 
@@ -15,12 +17,36 @@ public class AddressController {
     @Autowired
     AddressDao addressDao;
 
-    @GetMapping(path = "/rs/ad/{id}")
+    @GetMapping(path = "/rs/ad/addresses/{id}")
     public Address findAdd(@PathVariable Integer id) {
-        return addressDao.getAddressById(id);
+        Address address = addressDao.getAddressById(id);
+        if(address == null)
+            throw new NoSuchAddressException("No Such Address");
+        else
+            return address;
     }
-    @GetMapping(path = "/rs/ad/adds")
+
+    @GetMapping(path = "/rs/ad/addresses")
     public List<Address> findAllAdd() {
         return addressDao.getAllAddress();
+    }
+
+    @PostMapping(path = "/rs/ad/addresses")
+    public ResponseEntity<Object> postAddress(@RequestBody Address add) {
+        Address address = addressDao.saveAddress(add);
+        UriComponents uri = ServletUriComponentsBuilder.fromCurrentRequest().
+                path("id").
+                buildAndExpand(address.getAddressId());
+
+        return ResponseEntity.created(uri.toUri()).build();
+    }
+
+    @DeleteMapping(path = "/rs/ad/addresses/{id}")
+    public ResponseEntity<Object> deleteAddress(@PathVariable int id) {
+        Integer state = addressDao.removeAddressById(id);
+        if(state<=0)
+            throw new NoSuchAddressException("No Such Address");
+        else
+            return ResponseEntity.ok().build();
     }
 }

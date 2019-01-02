@@ -10,7 +10,7 @@ public interface CourseDao {
 
     void removeById(Long id);
 
-    void saveOrUpdate(Course course);
+    Course saveCourse(Course course);
 
     List<Course> getAllCourse();
 

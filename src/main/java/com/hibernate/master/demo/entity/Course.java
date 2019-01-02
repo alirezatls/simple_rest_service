@@ -16,7 +16,7 @@ public class Course {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(name = "course_student",
             joinColumns = @JoinColumn(name = "course_id"),
