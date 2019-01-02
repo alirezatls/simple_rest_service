@@ -2,7 +2,7 @@ package com.hibernate.master.demo.controller;
 
 import com.hibernate.master.demo.dao.AddressDao;
 import com.hibernate.master.demo.entity.Address;
-import exception.NoSuchAddressException;
+import com.hibernate.master.demo.exception.NoSuchAddressException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -2,7 +2,7 @@ package com.hibernate.master.demo.controller;
 
 import com.hibernate.master.demo.dao.CourseDao;
 import com.hibernate.master.demo.entity.Course;
-import exception.NoSuchCourseException;
+import com.hibernate.master.demo.exception.NoSuchCourseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
