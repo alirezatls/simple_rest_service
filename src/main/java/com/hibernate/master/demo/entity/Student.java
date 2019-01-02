@@ -1,5 +1,6 @@
 package com.hibernate.master.demo.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.engine.profile.Fetch;
 
 import javax.persistence.*;

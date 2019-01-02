@@ -1,16 +1,22 @@
 package com.hibernate.master.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Cacheable
 public class GroupManager {
     @Id
     @GeneratedValue
     private Integer managerId;
     private String name;
     private String family;
+    @JsonIgnore
     @OneToMany(mappedBy = "groupManager",fetch = FetchType.LAZY)
     private List<Student> students = new ArrayList<>();
 

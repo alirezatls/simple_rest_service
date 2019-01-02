@@ -1,5 +1,8 @@
 package com.hibernate.master.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +15,7 @@ public class Address {
     private String city;
     private String street;
     private String zipCode;
+    @JsonIgnore
     @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
     private Student student;
 
@@ -64,13 +68,4 @@ public class Address {
         this.student = student;
     }
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "addressId=" + addressId +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                '}';
-    }
 }

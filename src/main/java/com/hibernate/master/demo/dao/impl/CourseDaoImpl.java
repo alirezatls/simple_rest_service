@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -36,6 +38,12 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
+    public List<Course> getAllCourse() {
+        TypedQuery<Course> co = em.createQuery("select c from Course c", Course.class);
+        return co.getResultList();
+    }
+
+    @Override
     public void playWithEntityManager() {
       //  Course course1 = new Course("computer architecture");
      //   em.persist(course1);
@@ -48,5 +56,6 @@ public class CourseDaoImpl implements CourseDao {
         course2.setName("Angular");
         em.refresh(course2);
     }
+
 
 }

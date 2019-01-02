@@ -39,6 +39,7 @@ public class StudentDaoImpl implements StudentDao{
 
     @Override
     public List<Student> getAllStudent() {
-      return null;
+        TypedQuery<Student> st = em.createQuery("select s from Student s", Student.class);
+        return st.getResultList();
     }
 }
