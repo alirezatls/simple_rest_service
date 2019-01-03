@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Course {
     @GeneratedValue
     private Long id;
 
+    @Size(min = 2,message = "name shulde be atleast 2 character")
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

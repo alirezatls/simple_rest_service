@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class GroupManagerController {
     }
 
     @PostMapping(path = "/rs/gm/managers")
-    public ResponseEntity<Object> postManager(@RequestBody GroupManager man) {
+    public ResponseEntity<Object> postManager(@Valid @RequestBody GroupManager man) {
 
         GroupManager manager = managerDao.saveManager(man);
         UriComponents uri = ServletUriComponentsBuilder.fromCurrentRequest().

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class AddressController {
     }
 
     @PostMapping(path = "/rs/ad/addresses")
-    public ResponseEntity<Object> postAddress(@RequestBody Address add) {
+    public ResponseEntity<Object> postAddress(@Valid @RequestBody Address add) {
         Address address = addressDao.saveAddress(add);
         UriComponents uri = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("id").

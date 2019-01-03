@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class StudentController {
     }
 
     @PostMapping(path = "/rs/st/students")
-    public ResponseEntity<Object> postStudent(@RequestBody Student std) {
+    public ResponseEntity<Object> postStudent(@Valid @RequestBody Student std) {
         Student student = studentDao.saveStudent(std);
 
         UriComponents uri = ServletUriComponentsBuilder.fromCurrentRequest()

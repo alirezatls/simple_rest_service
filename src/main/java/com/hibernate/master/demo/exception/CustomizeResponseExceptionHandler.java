@@ -1,7 +1,9 @@
 package com.hibernate.master.demo.exception;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,6 +67,14 @@ public class CustomizeResponseExceptionHandler extends ResponseEntityExceptionHa
         return new ResponseEntity(formatResponse,HttpStatus.NOT_FOUND);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        ExceptionFormatResponse formatResponse =
+                new ExceptionFormatResponse(new Date(),"Validation Failed",ex.getBindingResult().toString());
+        return new ResponseEntity(formatResponse,HttpStatus.BAD_REQUEST);
+    }
 
 
 }

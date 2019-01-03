@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class CourseController {
     }
 
     @PostMapping(path = "/rs/co/courses")
-    public ResponseEntity<Object> postCourse(@RequestBody Course co) {
+    public ResponseEntity<Object> postCourse(@Valid @RequestBody Course co) {
         Course course = courseDao.saveCourse(co);
 
         UriComponents uri = ServletUriComponentsBuilder.fromCurrentRequest().

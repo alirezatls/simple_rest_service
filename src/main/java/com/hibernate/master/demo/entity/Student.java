@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import org.hibernate.engine.profile.Fetch;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +16,14 @@ public class Student {
     @JsonIgnore
     private Integer studentId;
 
+    @Size(min = 2,message = "name shulde be atleast 2 character")
     private String name;
 
+    @Size(min = 2,message = "family shulde be atleast 2 character")
     private String family;
 
     @Column(unique = true)
+    @Size(max = 8,message = "max nuber is 8")
     private String studentNumber;
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

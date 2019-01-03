@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Cacheable
@@ -17,7 +18,9 @@ public class Address {
 
     private String street;
 
+    @Size(max = 4,message = "max is 4")
     private String zipCode;
+
     @JsonIgnore
     @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
     private Student student;

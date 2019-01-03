@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,12 @@ public class GroupManager {
     @GeneratedValue
     private Integer managerId;
 
+    @Size(min = 2,message = "name shulde be atleast 2 character")
     private String name;
 
+    @Size(min = 2,message = "family shulde be atleast 2 character")
     private String family;
+
     @JsonIgnore
     @OneToMany(mappedBy = "groupManager",fetch = FetchType.LAZY)
     private List<Student> students = new ArrayList<>();
