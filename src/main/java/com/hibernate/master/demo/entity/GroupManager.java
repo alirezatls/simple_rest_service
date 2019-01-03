@@ -13,7 +13,6 @@ import java.util.List;
 public class GroupManager {
     @Id
     @GeneratedValue
-    @JsonIgnore
     private Integer managerId;
 
     private String name;

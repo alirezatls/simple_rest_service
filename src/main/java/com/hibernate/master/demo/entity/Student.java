@@ -24,9 +24,11 @@ public class Student {
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
+    @JsonIgnore
     private Address address;
 
     @ManyToMany(mappedBy = "studentList",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Course> courseList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

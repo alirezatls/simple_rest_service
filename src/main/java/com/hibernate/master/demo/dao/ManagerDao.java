@@ -8,9 +8,9 @@ public interface ManagerDao {
 
     GroupManager getManagerById(int id);
 
-    void saveOrUpdateManager(GroupManager gp);
+    GroupManager saveManager(GroupManager gp);
 
-    void removeManagerById(int id);
+    Integer removeManagerById(int id);
 
     List<GroupManager> getAllManager();
 }
